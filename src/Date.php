@@ -38,8 +38,7 @@ class Date
     {
         $date2 = self::create($date2);
         $result = self::create($date1);
-//        if ($result->format("d/m/y") > $date2->format("d/m/y"))
-//        {
+
             $result = $result->diff($date2);
 
 
@@ -77,14 +76,8 @@ class Date
                 }
 
             echo $result->format(implode(" ", $output));
-//
-//        }
 
-
-
-
-
-    }
+        }
 
     public static function explodeFormat($format)
     {
@@ -96,6 +89,17 @@ class Date
         return self::$format;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $date
+     * @param string $format defaults to y-m-d H:i:s
+     * @return integer
+     */
+    public static function toTimestamp($date,$format="y-m-d H:i:s"):int
+    {
+        return strtotime($date->format($format));
+    }
 
     public static function withAddedTime($date,$value)
     {
@@ -106,7 +110,6 @@ class Date
     {
         return new DateInterval($value);
     }
-
 
     private static function callTimeZone():object
     {
