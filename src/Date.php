@@ -23,6 +23,12 @@ class Date
         return static::$instance;
     }
 
+    
+    private static function defaultTimeZone()
+    {
+        return date_default_timezone_get();
+    }
+    
     public static function create($date="now"):object
     {
         return new DateTime($date,self::callTimeZone());
@@ -96,7 +102,7 @@ class Date
      * @param string $format defaults to y-m-d H:i:s
      * @return integer
      */
-    public static function toTimestamp($date,$format="y-m-d H:i:s"):int
+    public static function asTimeStamp($date,$format="y-m-d H:i:s"):int
     {
         return strtotime($date->format($format));
     }
@@ -119,7 +125,7 @@ class Date
 
     public static function getTimeZone():string
     {
-        return !empty(self::$timezone) ? self::$timezone : "GMT";
+        return !empty(self::$timezone) ? self::$timezone : self::defaultTimeZone();
     }
 
     public static function setTimeZone(string $timezone)
