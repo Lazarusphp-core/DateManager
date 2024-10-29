@@ -7,9 +7,11 @@ use DateInterval;
 
 class Date
 {
-    private static $format = [];
+    public static $format ="y-m-d h:i:s";
+    public static $exploded = [];
     private static $instance;
     private static string $timezone = "";
+
 
 
     public  static function boot()
@@ -23,6 +25,10 @@ class Date
         return static::$instance;
     }
 
+    public static function setFormat($format)
+    {
+        self::$format = $format;
+    }
     
     private static function defaultTimeZone()
     {
@@ -82,7 +88,6 @@ class Date
                 }
 
             echo $result->format(implode(" ", $output));
-
         }
 
     public static function explodeFormat($format)
@@ -90,9 +95,9 @@ class Date
         $explode = explode("|",$format);
         foreach ($explode as $exploded)
         {
-            self::$format[$exploded] = true;
+            self::$exploded[$exploded] = true;
         }
-        return self::$format;
+        return self::$exploded;
     }
 
     /**
