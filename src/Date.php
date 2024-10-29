@@ -8,7 +8,6 @@ use DateInterval;
 class Date
 {
     public static $format ="y-m-d h:i:s";
-    public static $exploded = [];
     private static $instance;
     private static string $timezone = "";
 
