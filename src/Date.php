@@ -11,19 +11,6 @@ class Date
     private static $instance;
     private static string $timezone = "";
 
-
-
-    public  static function boot()
-    {
-        if(!isset(static::$instance))
-        {
-            $c = get_called_class();
-            static::$instance = $c;
-        }
-
-        return static::$instance;
-    }
-
     public static function setFormat($format)
     {
         self::$format = $format;
@@ -38,7 +25,6 @@ class Date
     {
         return new DateTime($date,self::callTimeZone());
     }
-
 
     /**
      * @param $date1
@@ -112,7 +98,7 @@ class Date
             return $result->format($imploded);
         }
     /**
-     * Undocumented function
+     *  Convert to timezone method name asTimeZone()
      *
      * @param [type] $date
      * @param string $format defaults to y-m-d H:i:s
@@ -123,14 +109,18 @@ class Date
         return strtotime($date->format($format));
     }
 
+
+    // Manage timezone  Added time.
     public static function withAddedTime($date,$value)
     {
         return self::create($date)->add(self::setInterval($value));
     }
 
+    // Add timezone Interval
     private  static function setInterval($value)
     {
         return new DateInterval($value);
+    
     }
 
     private static function callTimeZone():object
@@ -139,14 +129,15 @@ class Date
     }
 
 
-    public static function getTimeZone():string
-    {
-        return !empty(self::$timezone) ? self::$timezone : self::defaultTimeZone();
-    }
-
+    // Setting and Retrieving Timezone
     public static function setTimeZone(string $timezone)
     {
         self::$timezone = $timezone;
+    }
+
+    public static function getTimeZone():string
+    {
+        return !empty(self::$timezone) ? self::$timezone : self::defaultTimeZone();
     }
 
 
