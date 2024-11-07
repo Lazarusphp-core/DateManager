@@ -8,7 +8,6 @@ use DateInterval;
 class Date
 {
     public static $format ="y-m-d h:i:s";
-    private static $instance;
     private static string $timezone = "";
 
     public static function setFormat($format)
@@ -42,7 +41,6 @@ class Date
 
         // Format the strings to lower case
         $format = strtolower($format);
-
         // Explode the string into an array
         $explode = explode("|",$format);
         // Generate an empty array
@@ -109,7 +107,6 @@ class Date
         return strtotime($date->format($format));
     }
 
-
     // Manage timezone  Added time.
     public static function withAddedTime($date,$value)
     {
@@ -120,14 +117,12 @@ class Date
     private  static function setInterval($value)
     {
         return new DateInterval($value);
-    
     }
 
     private static function callTimeZone():object
     {
         return new DateTimeZone(self::getTimeZone());
     }
-
 
     // Setting and Retrieving Timezone
     public static function setTimeZone(string $timezone)
